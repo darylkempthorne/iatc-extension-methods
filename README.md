@@ -15,17 +15,17 @@ The `ExtensionDemo` library contains two primary interfaces that it exports: `IE
 
 The `ExampleServiceCollectionExtensions` class has two extension methods for the `IServiceCollection` interface (requires dependency on `Microsoft.Extensions.DependencyInjection.Abstractions`). The first, `AddExamples()`, defers to the more complex extension method. The second, `AddExamples(...)`, first creates the default options and configures the options using theprovided configuration delegate method.
 
-> // create the default options and then perform the configuration
-> var options = ExampleOptions.Default;
-> configureOptions(options);
+    // create the default options and then perform the configuration
+    var options = ExampleOptions.Default;
+    configureOptions(options);
 
 Then we register the options as a singleton instance as the options do not need more than one instance created. The `Example` and `ExampleWithOptions` are both registered as scoped dependencies against their interface. The decision to register the two dependencies as scoped, rather than transient or singleton, will be based on the particular features of the library.
 
-> // register services
-> services.AddSingleton(options);
-> services.AddScoped<IExample, Example>();
-> services.AddScoped<IExampleWithOptions, ExampleWithOptions>();
+    // register services
+    services.AddSingleton(options);
+    services.AddScoped<IExample, Example>();
+    services.AddScoped<IExampleWithOptions, ExampleWithOptions>();
 
 Finally, we return the service collection so that methods can be chained together in a fluent-type manner.
 
-> return services;
+    return services;
